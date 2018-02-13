@@ -4,7 +4,7 @@ variable "consul_image" {
 }
 
 variable "consul_memory_reservation" {
-  description = "The soft limit (in MiB) of memory to reserve for the container, defaults 20"
+  description = "The soft limit (in MiB) of memory to reserve for the container, defaults 32"
   default     = "32"
 }
 
@@ -23,6 +23,6 @@ variable "registrator_image" {
 }
 
 variable "registrator_memory_reservation" {
-  description = "The soft limit (in MiB) of memory to reserve for the container, defaults 20"
+  description = "The soft limit (in MiB) of memory to reserve for the container, defaults 32"
   default     = "32"
 }

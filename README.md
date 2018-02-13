@@ -14,11 +14,16 @@ This module
 
 ----------------------
 #### Required
-- `alb_log_bucket` - s3 bucket to send ALB Logs
+- `ecs_cluster` - EC2 Container Service cluster in which the service will be deployed (must already exist, the module will not create it).
+
 
 #### Optional
 
-- `cluster_size`  - Consul cluster size. This must be greater the 3, defaults to 3
+- `consul_image` - Image to use when deploying consul, defaults to the hashicorp consul image
+- `consul_memory_reservation` - The soft limit (in MiB) of memory to reserve for the container, (defaults 32)
+- `iam_path` - IAM path, this is useful when creating resources with the same name across multiple regions. (Defaults to /)
+- `registrator_image` - Image to use when deploying registrator agent, defaults to the gliderlabs registrator:latest image
+- `registrator_memory_reservation` The soft limit (in MiB) of memory to reserve for the container, defaults 32
 
 Usage
 -----
