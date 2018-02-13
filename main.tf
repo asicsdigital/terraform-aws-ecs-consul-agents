@@ -77,7 +77,7 @@ resource "aws_ecs_task_definition" "consul" {
 }
 
 resource "aws_cloudwatch_log_group" "consul" {
-  name  = "${aws_ecs_task_definition.consul.family}"
+  name = "${aws_ecs_task_definition.consul.family}"
 
   tags {
     Application = "${aws_ecs_task_definition.consul.family}"
