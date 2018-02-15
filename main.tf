@@ -6,7 +6,6 @@ data "aws_ecs_cluster" "current" {
   cluster_name = "${var.ecs_cluster}"
 }
 
-
 data "template_file" "consul" {
   template = "${file("${path.module}/templates/consul.json")}"
 
