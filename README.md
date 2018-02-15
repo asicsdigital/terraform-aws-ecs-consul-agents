@@ -21,6 +21,9 @@ This module
 
 - `consul_image` - Image to use when deploying consul, defaults to the hashicorp consul image
 - `consul_memory_reservation` - The soft limit (in MiB) of memory to reserve for the container, (defaults 32)
+- `definitions` - List of Consul Service and Health Check Definitions
+- `healthcheck_image` - Image to use when deploying health check agent, defaults to fitnesskeeper/consul-healthchecks:latest image
+- `healthcheck_memory_reservation` - The soft limit (in MiB) of memory to reserve for the container, defaults 32
 - `iam_path` - IAM path, this is useful when creating resources with the same name across multiple regions. (Defaults to /)
 - `registrator_image` - Image to use when deploying registrator agent, defaults to the gliderlabs registrator:latest image
 - `registrator_memory_reservation` The soft limit (in MiB) of memory to reserve for the container, defaults 32

@@ -6,15 +6,19 @@ data "aws_ecs_cluster" "current" {
   cluster_name = "${var.ecs_cluster}"
 }
 
+
 data "template_file" "consul" {
   template = "${file("${path.module}/templates/consul.json")}"
 
   vars {
     env                            = "${var.ecs_cluster}"
+    checks                         = "${join(" ", var.checks)}"
     image                          = "${var.consul_image}"
     registrator_image              = "${var.registrator_image}"
+    healthcheck_image              = "${var.healthcheck_image}"
     consul_memory_reservation      = "${var.consul_memory_reservation}"
     registrator_memory_reservation = "${var.registrator_memory_reservation}"
+    healthcheck_memory_reservation = "${var.healthcheck_memory_reservation}"
     awslogs_group                  = "consul-agent-${var.ecs_cluster}"
     awslogs_stream_prefix          = "consul-agent-${var.ecs_cluster}"
     awslogs_region                 = "${data.aws_region.current.name}"
@@ -73,6 +77,11 @@ resource "aws_ecs_task_definition" "consul" {
   volume {
     name      = "docker-sock"
     host_path = "/var/run/docker.sock"
+  }
+
+  volume {
+    name      = "consul-check-definitions"
+    host_path = "/consul_check_definitions"
   }
 }
 

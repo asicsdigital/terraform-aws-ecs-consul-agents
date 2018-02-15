@@ -2,6 +2,8 @@
         {
             "name": "consul-agent-${env}",
             "image": "${image}",
+            "essential": true,
+            "cpu": 0,
             "memoryReservation": ${consul_memory_reservation},
             "environment": [
                 {
@@ -10,13 +12,21 @@
                 }
             ],
             "command": [
-              "agent", "-client=0.0.0.0"
+              "agent", "-client=0.0.0.0", "-config-dir=/consul_check_definitions"
             ],
             "mountPoints": [
               {
                 "sourceVolume": "consul-config-dir",
                 "containerPath": "/consul/config"
               }
+            ],
+            "volumesFrom": [
+              {
+                "sourceContainer": "consul-healthchecks-${env}"
+              }
+            ],
+            "portMappings": [
+
             ],
             "logConfiguration": {
               "logDriver": "awslogs",
@@ -28,9 +38,51 @@
               }
         },
         {
+            "name": "consul-healthchecks-${env}",
+            "image": "${healthcheck_image}",
+            "essential": true,
+            "cpu": 0,
+            "memoryReservation": ${healthcheck_memory_reservation},
+            "environment": [
+                {
+                    "name": "CHECKS",
+                    "value": "${checks}"
+                }
+            ],
+            "mountPoints": [
+              {
+                "sourceVolume": "docker-sock",
+                "containerPath": "/var/run/docker.sock"
+              },
+              {
+                "sourceVolume": "consul-check-definitions",
+                "containerPath": "/consul_check_definitions"
+              }
+            ],
+            "portMappings": [
+
+            ],
+            "volumesFrom": [
+
+            ],
+            "logConfiguration": {
+              "logDriver": "awslogs",
+                "options": {
+                  "awslogs-group": "${awslogs_group}",
+                  "awslogs-region": "${awslogs_region}",
+                  "awslogs-stream-prefix": "${awslogs_stream_prefix}"
+                }
+              }
+        },
+        {
             "name": "registrator-${env}",
             "image": "${registrator_image}",
+            "essential": true,
+            "cpu": 0,
             "memoryReservation": ${registrator_memory_reservation},
+            "environment": [
+
+            ],
             "command": [
               "-retry-attempts=10", "-retry-interval=1000", "consul://localhost:8500"
             ],
@@ -39,6 +91,12 @@
                 "sourceVolume": "docker-sock",
                 "containerPath": "/tmp/docker.sock"
               }
+            ],
+            "portMappings": [
+
+            ],
+            "volumesFrom": [
+              
             ],
             "logConfiguration": {
               "logDriver": "awslogs",
