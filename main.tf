@@ -12,7 +12,7 @@ data "template_file" "consul" {
 
   vars {
     env                            = "${var.ecs_cluster}"
-    checks                         = "${join(" ", var.checks)}"
+    definitions                    = "${join(" ", var.definitions)}"
     image                          = "${var.consul_image}"
     registrator_image              = "${var.registrator_image}"
     healthcheck_image              = "${var.healthcheck_image}"

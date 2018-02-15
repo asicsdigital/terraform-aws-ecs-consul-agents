@@ -46,7 +46,7 @@
             "environment": [
                 {
                     "name": "CHECKS",
-                    "value": "${checks}"
+                    "value": "${definitions}"
                 }
             ],
             "mountPoints": [
@@ -96,7 +96,7 @@
 
             ],
             "volumesFrom": [
-              
+
             ],
             "logConfiguration": {
               "logDriver": "awslogs",
