@@ -33,6 +33,12 @@ Usage
 
 ```hcl
 
+module "consul-infra-svc-pub" {
+  source      = "../modules/terraform-aws-ecs-consul-agents"
+  ecs_cluster = "${module.infra-svc-pub.cluster_name}"
+  definitions = ["ecs-cluster"]
+}
+
 ```
 
 Outputs
