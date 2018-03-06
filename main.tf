@@ -14,10 +14,10 @@ data "template_file" "consul" {
     definitions                    = "${join(" ", var.definitions)}"
     image                          = "${var.consul_image}"
     registrator_image              = "${var.registrator_image}"
-    healthcheck_image              = "${var.healthcheck_image}"
+    sidecar_image                  = "${var.sidecar_image}"
     consul_memory_reservation      = "${var.consul_memory_reservation}"
     registrator_memory_reservation = "${var.registrator_memory_reservation}"
-    healthcheck_memory_reservation = "${var.healthcheck_memory_reservation}"
+    sidecar_memory_reservation     = "${var.sidecar_memory_reservation}"
     awslogs_group                  = "consul-agent-${var.ecs_cluster}"
     awslogs_stream_prefix          = "consul-agent-${var.ecs_cluster}"
     awslogs_region                 = "${data.aws_region.current.name}"
@@ -31,6 +31,10 @@ data "aws_iam_policy_document" "consul_task_policy" {
     actions = [
       "ec2:Describe*",
       "autoscaling:Describe*",
+      "cloudwatch:PutMetricData",
+      "ecs:DescribeClusters",
+      "ecs:UpdateContainerInstancesState",
+      "ecs:DescribeContainerInstances",
     ]
 
     resources = ["*"]
