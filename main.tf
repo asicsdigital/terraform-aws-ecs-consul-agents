@@ -33,6 +33,8 @@ data "aws_iam_policy_document" "consul_task_policy" {
       "autoscaling:Describe*",
       "cloudwatch:PutMetricData",
       "ecs:DescribeClusters",
+      "ecs:UpdateContainerInstancesState",
+      "ecs:DescribeContainerInstances",
     ]
 
     resources = ["*"]
