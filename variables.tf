@@ -9,7 +9,7 @@ variable "consul_memory_reservation" {
 }
 
 variable "definitions" {
-  type        = "list"
+  type        = list(string)
   description = "List of Consul Service and Health Check Definitions"
   default     = []
 }
@@ -42,3 +42,4 @@ variable "registrator_memory_reservation" {
   description = "The soft limit (in MiB) of memory to reserve for the container, defaults 32"
   default     = "32"
 }
+
