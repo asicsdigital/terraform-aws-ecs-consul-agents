@@ -1,6 +1,6 @@
 variable "consul_image" {
   description = "Image to use when deploying consul, defaults to the hashicorp consul image"
-  default     = "consul:latest"
+  default     = "consul:1.15.4"
 }
 
 variable "consul_memory_reservation" {
